@@ -24,6 +24,92 @@ SIMADA/
 └── README.md       # Dokumentasi Proyek
 ```
 
+## 🗄️ Struktur Database: `db_simada_epurchasing`
+
+Database ini dirancang untuk mendukung alur kerja *e-purchasing* yang terintegrasi, mulai dari pengelolaan produk hingga transaksi akhir.
+
+### 1. Tabel `users`
+*Menyimpan data pengguna yang memiliki akses ke sistem.*
+
+| Field | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id_user` | INT (PK) | Auto Increment, Primary Key |
+| `username` | VARCHAR(50) | Username untuk login (Unique) |
+| `password` | VARCHAR(255) | Password terenkripsi (Hashed) |
+| `nama_lengkap` | VARCHAR(100) | Nama asli pengguna |
+| `role` | ENUM | Admin, Staff Purchasing, Manager |
+| `created_at` | TIMESTAMP | Waktu pembuatan akun |
+
+### 2. Tabel `vendors`
+*Menyimpan data rekanan/penyedia barang.*
+
+| Field | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id_vendor` | INT (PK) | Auto Increment, Primary Key |
+| `nama_vendor` | VARCHAR(100) | Nama perusahaan vendor |
+| `nama_kontak` | VARCHAR(100) | Nama PIC vendor |
+| `telepon` | VARCHAR(20) | Nomor telepon vendor |
+| `email` | VARCHAR(100) | Alamat email vendor |
+| `alamat` | TEXT | Alamat kantor vendor |
+| `status` | ENUM | Aktif / Nonaktif |
+
+### 3. Tabel `products`
+*Menyimpan katalog barang yang tersedia untuk dibeli.*
+
+| Field | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id_product` | INT (PK) | Auto Increment, Primary Key |
+| `id_vendor` | INT (FK) | Relasi ke `vendors.id_vendor` |
+| `kode_barang` | VARCHAR(30) | Kode unik barang (Unique) |
+| `nama_barang` | VARCHAR(150) | Nama barang |
+| `kategori` | VARCHAR(50) | Kategori barang |
+| `harga` | INT | Harga satuan barang |
+| `stok` | INT | Jumlah stok tersedia |
+| `satuan` | VARCHAR(20) | Unit (pcs, box, dll) |
+
+### 4. Tabel `purchase_requests`
+*Menyimpan data pengajuan pembelian oleh staf.*
+
+| Field | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id_request` | INT (PK) | Auto Increment, Primary Key |
+| `no_request` | VARCHAR(50) | Nomor PR unik (Unique) |
+| `id_user` | INT (FK) | Relasi ke `users.id_user` |
+| `id_product` | INT (FK) | Relasi ke `products.id_product` |
+| `jumlah` | INT | Jumlah yang diajukan |
+| `total_harga` | BIGINT | Jumlah * Harga |
+| `tanggal_pengajuan`| DATE | Tanggal dibuat |
+| `status` | ENUM | Pending, Approved, Rejected |
+| `catatan_staff` | TEXT | Catatan tambahan staf |
+
+### 5. Tabel `approvals`
+*Menyimpan hasil keputusan (approve/reject) oleh manajer.*
+
+| Field | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id_approval` | INT (PK) | Auto Increment, Primary Key |
+| `id_request` | INT (FK) | Relasi ke `purchase_requests.id_request` |
+| `id_user` | INT (FK) | Relasi ke `users.id_user` (Manajer) |
+| `status_approval`| ENUM | Approved, Rejected |
+| `catatan_manager`| TEXT | Catatan manajer |
+| `tanggal_proses` | TIMESTAMP | Waktu persetujuan |
+
+### 6. Tabel `transactions`
+*Menyimpan catatan transaksi yang sudah disetujui.*
+
+| Field | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id_transaction` | INT (PK) | Auto Increment, Primary Key |
+| `no_transaksi` | VARCHAR(50) | Nomor transaksi unik (Unique) |
+| `id_request` | INT (FK) | Relasi ke `purchase_requests.id_request` |
+| `tanggal_transaksi`| DATE | Tanggal transaksi |
+| `metode_pembayaran`| VARCHAR(50) | Metode pembayaran |
+
+---
+> **Catatan:**
+> * **PK** = Primary Key (Kunci Utama).
+> * **FK** = Foreign Key (Kunci Tamu untuk relasi antar tabel).
+
 ### 3. Spesifikasi Teknis
 ## 🛠️ Spesifikasi Teknis (System Requirements)
 * **Environment:** PHP 8.2+ (Local: XAMPP/Laragon, Production: Niagahoster/cPanel)
