@@ -36,51 +36,58 @@ SIMADA/
 
 ---
 
-
-## 📦 Cara Instalasi & Setup Lengkap 
+## 📦 Cara Instalasi & Setup
 
 ### 1. Repository Deployment
 ```bash
 git clone [https://github.com/dewagibran0-oss/uts_Simada_Kelompok-8.git](https://github.com/dewagibran0-oss/uts_Simada_Kelompok-8.git)
 cd uts_Simada_Kelompok-8
 
-2. Database Provisioning
-Buka phpMyAdmin > Create New Database db_simada_epurchasing.
+```
 
-Jalankan script db_simada_epurchasing.sql melalui tab Import.
+### 2. Database Provisioning
+1. Buka **phpMyAdmin** pada lokal server Anda (XAMPP/Laragon).
+2. Buat database baru dengan nama `db_simada_epurchasing`.
+3. Pilih database tersebut, lalu buka tab **Import**.
+4. Upload dan jalankan file `db_simada_epurchasing.sql`.
 
-3. Configuration
-Edit file config/database.php. Ubah parameter di blok else untuk Live Server (Niagahoster).
+### 3. Configuration
+Edit file `config/database.php` untuk mengatur koneksi:
+* Sesuaikan kredensial database pada blok `else` jika Anda melakukan deployment ke **Live Server (Niagahoster/cPanel)**.
 
-4. Permissions
-Jika di Linux/cPanel, atur CHMOD folder assets menjadi 755 dan config menjadi 644.
+### 4. Permissions (Khusus Linux/cPanel)
+Jika aplikasi berjalan di lingkungan Linux, pastikan izin akses folder diatur sebagai berikut:
+* `assets/` : `755`
+* `config/` : `644`
 
 ### 5. Logika Bisnis & Coding Standards
 ```markdown
-## 🧩 Penjelasan Fungsi & Logic Bisnis
-* **Multi-Role Authentication:** Sistem mendeteksi role pada sesi user setelah login. Jika user mencoba mengakses modul yang tidak berhak, sistem akan me-redirect secara otomatis ke halaman `index.php`.
-* **Dynamic DB Connector:** Kami menyematkan deteksi `$_SERVER['HTTP_HOST']`. Sistem cerdas dalam memilih database: jika di localhost, dia menggunakan `root/empty pass`, jika di web, dia menggunakan kredensial Niagahoster tanpa perlu modifikasi manual saat push ke GitHub.
-* **Approval Lifecycle:**
-    `Pending (Staff mengajukan)` → `Approved/Rejected (Manajer memproses)` → `Success (Transaksi tercatat)`.
+## 🧩 Penjelasan Fungsi & Logika Bisnis
+
+* **Multi-Role Authentication:** Sistem mendeteksi *role* pengguna secara otomatis setelah login. Akses ke modul yang tidak sesuai dengan *role* akan di-redirect ke `index.php`.
+* **Dynamic DB Connector:** Menggunakan deteksi `$_SERVER['HTTP_HOST']`. Sistem secara cerdas beralih antara konfigurasi *localhost* dan *production* tanpa perlu mengubah kode saat melakukan *push* ke GitHub.
+* **Approval Lifecycle:** `Pending (Staff)` ➔ `Approved/Rejected (Manajer)` ➔ `Success (Selesai)`.
 
 ## 💻 Coding Standards
-* **PEP-Style for PHP:** Menggunakan `snake_case` untuk penamaan database dan file, serta `camelCase` untuk fungsi.
-* **Pathing Rules:** Dilarang keras menggunakan *hardcoded path*. Selalu gunakan `__DIR__` untuk memastikan aplikasi bersifat portable.
-* **Commenting:** Setiap fungsi yang kompleks wajib memiliki docblock penjelasan.
+
+* **Naming Convention:** Menggunakan `snake_case` untuk penamaan database/file dan `camelCase` untuk fungsi.
+* **Pathing Rules:** Dilarang keras menggunakan *hardcoded path*. Selalu gunakan `__DIR__` agar aplikasi bersifat *portable*.
+* **Documentation:** Setiap fungsi kompleks wajib menyertakan *docblock* sebagai penjelasan teknis.
 
 ---
 
 ## 🔄 Version Control & Commit Protocol
-Kami menggunakan *Conventional Commits* untuk menjaga riwayat perubahan tetap bersih:
 
-| Tipe Aksi | Penjelasan |
+Kami menggunakan *Conventional Commits* untuk menjaga riwayat proyek tetap bersih:
+
+| Tipe | Penjelasan |
 | :--- | :--- |
 | `feat` | Menambah fitur baru |
-| `fix` | Memperbaiki bug |
-| `docs` | Menambah dokumentasi |
-| `refactor` | Optimasi kode |
-| `perf` | Peningkatan kecepatan |
-| `chore` | Update dependensi |
+| `fix` | Memperbaiki bug atau error |
+| `docs` | Menambah dokumentasi / README |
+| `refactor` | Optimasi kode tanpa perubahan fungsi |
+| `perf` | Peningkatan performa |
+| `chore` | Update dependensi atau konfigurasi |
 
 **Format:** `tipe(modul): penjelasan singkat`
 
