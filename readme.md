@@ -1,10 +1,28 @@
 # 🚀 SIMADA - Sistem Informasi e-Purchasing
 
-## 📖 Ringkasan Proyek
-**SIMADA** adalah solusi sistem informasi berbasis web yang dikembangkan untuk mengotomatisasi siklus **Procurement-to-Pay** di lingkungan organisasi. Sistem ini menghilangkan hambatan administratif dalam proses pengadaan melalui alur kerja digital yang terintegrasi antara Staf Purchasing, Manajer, dan Admin.
+[![Status](https://img.shields.io/badge/status-active-success.svg)]() 
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-blue.svg)]() 
+[![Database](https://img.shields.io/badge/Database-MySQL-orange.svg)]()
+
+**SIMADA** adalah solusi sistem informasi berbasis web yang dirancang untuk mengotomatisasi siklus **Procurement-to-Pay** di lingkungan organisasi. Sistem ini mentransformasi alur pengadaan manual menjadi alur kerja digital yang terintegrasi, transparan, dan efisien.
 
 ---
 
+## 🏗️ Struktur Proyek
+Proyek ini menggunakan **Modular Architecture** untuk memastikan *Separation of Concerns* yang rapi.
+
+```text
+SIMADA/
+├── admin/          # Dashboard & Manajemen User/Vendor
+├── auth/           # Sistem Login, Logout, & Session Security
+├── config/         # Konfigurasi Database & Koneksi
+├── layouts/        # Komponen UI (Header, Footer, Nav, Sidebar)
+├── manager/        # Modul Approval & Verifikasi Manajer
+├── purchasing/     # Modul Pengajuan & Transaksi Staf
+├── assets/         # Static files (CSS, JS, Images)
+├── index.php       # Entry Point Utama
+└── README.md       # Dokumentasi Proyek
+```
 
 ### 3. Spesifikasi Teknis
 ## 🛠️ Spesifikasi Teknis (System Requirements)
@@ -17,22 +35,9 @@
 * **Compatibility:** Responsive UI (Bootstrap 5.x) & Cross-Browser Friendly.
 
 ---
-## 🏗️ Arsitektur & Struktur Folder
-Proyek menggunakan pendekatan **Modular Architecture**. Setiap modul memiliki tanggung jawab logis yang terpisah (*Separation of Concerns*).
 
-```text
-simada/
-├── admin/                  # [Module] Dashboard Manajemen Admin
-├── assets/                 # [Statics] CSS/JS framework, fonts, & media
-├── auth/                   # [Auth] Login, Logout, & Session Handling
-├── config/                 # [Kernel] Konfigurasi Database
-├── layouts/                # [Template] Header, Footer, Navbar, Sidebar
-├── manager/                # [Module] Approval & Verifikasi
-├── purchasing/             # [Module] Interface pengajuan barang
-├── index.php               # [Entry] Landing page utama
-└── README.md               # [Documentation] Proyek ini
 
-## 📦 Cara Instalasi & Setup Lengkap
+## 📦 Cara Instalasi & Setup Lengkap 
 
 ### 1. Repository Deployment
 ```bash
