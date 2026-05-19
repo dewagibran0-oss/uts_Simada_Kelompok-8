@@ -60,42 +60,50 @@ Jika aplikasi berjalan di lingkungan Linux, pastikan izin akses folder diatur se
 * `assets/` : `755`
 * `config/` : `644`
 
-### 5. Logika Bisnis & Coding Standards
-```markdown
-## 🧩 Penjelasan Fungsi & Logika Bisnis
-
-* **Multi-Role Authentication:** Sistem mendeteksi *role* pengguna secara otomatis setelah login. Akses ke modul yang tidak sesuai dengan *role* akan di-redirect ke `index.php`.
-* **Dynamic DB Connector:** Menggunakan deteksi `$_SERVER['HTTP_HOST']`. Sistem secara cerdas beralih antara konfigurasi *localhost* dan *production* tanpa perlu mengubah kode saat melakukan *push* ke GitHub.
-* **Approval Lifecycle:** `Pending (Staff)` ➔ `Approved/Rejected (Manajer)` ➔ `Success (Selesai)`.
-
-## 💻 Coding Standards
-
-* **Naming Convention:** Menggunakan `snake_case` untuk penamaan database/file dan `camelCase` untuk fungsi.
-* **Pathing Rules:** Dilarang keras menggunakan *hardcoded path*. Selalu gunakan `__DIR__` agar aplikasi bersifat *portable*.
-* **Documentation:** Setiap fungsi kompleks wajib menyertakan *docblock* sebagai penjelasan teknis.
+---
 
 ---
 
-## 🔄 Version Control & Commit Protocol
+## 🧩 Logika Bisnis & Fitur Utama
 
-Kami menggunakan *Conventional Commits* untuk menjaga riwayat proyek tetap bersih:
+* **Multi-Role Authentication**: Sistem mendeteksi *role* pengguna secara otomatis setelah login. Akses yang tidak sah ke modul tertentu akan secara otomatis diredirect ke `index.php`.
+* **Dynamic DB Connector**: Menggunakan deteksi `$_SERVER['HTTP_HOST']` untuk transisi otomatis antara konfigurasi *localhost* dan *production*. Tidak perlu modifikasi kode saat melakukan *push* ke repositori.
+* **Approval Lifecycle**: Alur kerja sistem yang terstruktur:
+    > `Pending (Staff)` ➔ `Approved/Rejected (Manajer)` ➔ `Success (Transaksi tercatat)`
+
+## 💻 Standar Pengembangan
+
+* **Naming Convention**: Menggunakan `snake_case` untuk penamaan database/file dan `camelCase` untuk penamaan fungsi.
+* **Portability Rules**: Penggunaan *hardcoded path* dilarang keras. Kami menerapkan `__DIR__` untuk memastikan aplikasi bersifat *portable* di lingkungan server mana pun.
+* **Documentation**: Setiap fungsi kompleks wajib menyertakan *docblock* untuk menjelaskan alur logika secara teknis.
+
+---
+
+## 🔄 Version Control & Protocol
+
+Kami menggunakan **Conventional Commits** untuk menjaga riwayat repositori tetap bersih dan mudah dipahami:
 
 | Tipe | Penjelasan |
-| :--- | :--- |
-| `feat` | Menambah fitur baru |
+| :---: | :--- |
+| `feat` | Menambahkan fitur baru |
 | `fix` | Memperbaiki bug atau error |
-| `docs` | Menambah dokumentasi / README |
-| `refactor` | Optimasi kode tanpa perubahan fungsi |
-| `perf` | Peningkatan performa |
-| `chore` | Update dependensi atau konfigurasi |
+| `docs` | Menambah atau mengubah dokumentasi |
+| `refactor` | Optimasi kode tanpa perubahan fungsionalitas |
+| `perf` | Peningkatan performa aplikasi |
+| `chore` | Update dependensi atau konfigurasi server |
 
-**Format:** `tipe(modul): penjelasan singkat`
+> **Format Penulisan**: `tipe(modul): deskripsi singkat`
+> *Contoh:* `feat(purchasing): menambah validasi input supplier`
+
+---
 
 ## 👨‍💻 Kontributor
-* **Dewa Ahmad Gibran** (Lead Developer)
-* **Kelompok 8** - UTS
 
-## ⚖️ License
+* **Dewa Ahmad Gibran** — *Lead Developer*
+* **Kelompok 8** — *UTS Development Team*
+
+## ⚖️ License & Copyright
+
 Proyek ini dikembangkan sebagai bagian dari tugas sistem informasi. Hak cipta dilindungi oleh peraturan akademik yang berlaku.
 
-© 2026 - SIMADA - e-Purchasing System
+**© 2026 - SIMADA - e-Purchasing System**
