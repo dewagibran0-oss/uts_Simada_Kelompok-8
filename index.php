@@ -1,4 +1,4 @@
 <?php
-header("Location: /admin/login.php"); // Arahkan ke file login kamu
+header("Location: /auth/login.php"); // Arahkan ke file login kamu
 exit;
 ?>
